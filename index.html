@@ -1,0 +1,83 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700"
+      rel="stylesheet"
+    />
+
+    <script defer src="js/script.js"></script>
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    /> -->
+    <!-- <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" /> -->
+
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script type="module" defer="" src="src/js/controller.js"></script> -->
+
+    <title>Weather App</title>
+  </head>
+
+  <body>
+    <div class="card">
+      <div class="search">
+        <button onclick="checkWeather()">
+          <i class="fas fa-search" style="color: #f1f1f1e4"></i>
+        </button>
+        <input
+          type="text"
+          id="city"
+          placeholder="kërkoni qytetin"
+          spellcheck="false"
+        />
+        <button class="add">
+          <i class="fa fa-plus" aria-hidden="true" style="color: #f1f1f1e4"></i>
+        </button>
+      </div>
+      <div id="weather">
+        <!-- <div class="displayweather"> -->
+        <!-- <h2 class="city">Tirana, AL</h2>
+          <img src="/img/sun.png" class="weatherIcon" />
+          <h1 class="temp">15 c</h1>
+          <h3 class="tempMaxMin">10 c/18 c</h3>
+          <h3 class="description">Sunny</h3>
+          <div class="details">
+            <div class="col">
+              <i class="fa-solid fa-water fa-2x"></i>
+              <div>
+                <p class="humidity"></p>
+                <p>Humidity</p>
+              </div>
+            </div>
+            <div class="col">
+              <i class="fa-solid fa-wind fa-2x"></i>
+              <div>
+                <p class="wind"></p>
+                <p>wind speed</p>
+              </div>
+            </div>
+          </div>
+        </div> 
+        </div>-->
+      </div>
+      <div class="addDot" style="text-align: center">
+        <br />
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+    </div>
+  </body>
+</html>
