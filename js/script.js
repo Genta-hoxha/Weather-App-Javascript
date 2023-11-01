@@ -28,13 +28,13 @@ function checkWeather() {
       return res.json();
     })
     .then((data) => {
-      console.log("jjaj", data);
       const tempCelsius = Math.round(data.main.temp);
       const html = `
         <div id="weather">
           <h2 class="city">${data.name}, ${data.sys.country}</h2>
           <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" class="weathericon">
           <h1 class="temp">${tempCelsius} °C</h1>
+          <h3 class="description">${data.weather[0].description}</h3>
           <div class="degree-button">
             <h3 class="tempMin">Temp.min: ${data.main.temp_min} <button id="celsiusButton" onclick="convertToCelsius()">°C</button> /
             <button id="fahrenheitButton" onclick="convertToFahrenheit()">°F</button> </h3>
@@ -42,7 +42,7 @@ function checkWeather() {
             <button id="fahrenheitButton" onclick="convertToFahrenheit()">°F</button>
             </h3>
           </div>
-          <h3 class="description">${data.weather[0].description}</h3>
+        
           <div class="details">
             <div class="col">
               <i class="fa-solid fa-water fa-2x"></i>
