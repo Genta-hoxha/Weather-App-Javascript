@@ -4,22 +4,31 @@ const api = {
   key: "b3e04946fa11e3be512056b3a7d6c125",
 };
 
+var obj;
 let searchBox = document.querySelector(".search input");
 let searchBtn = document.querySelector(".search button");
 // let displayWeather = document.querySelector("#weather");
-// let addBtn = document.querySelector(".add");
+let addBtn = document.querySelector(".add");
+const slideshow = document.getElementById("addDot");
+const dotsContainer = document.createElement("div"); // Container for dots
+dotsContainer.className = "dot-bar";
+slideshow.appendChild(dotsContainer);
 
+const state = {};
 let cel;
+let slideIndex = 0;
 function checkWeather() {
   const city = document.getElementById("city").value;
   fetch(`${api.url}${city}&appid=${api.key}`)
     .then((res) => {
+      obj = res;
       if (!res.ok) {
         throw new Error("Unable to fetch weather data.");
       }
       return res.json();
     })
     .then((data) => {
+      console.log("jjaj", data);
       const tempCelsius = Math.round(data.main.temp);
       const html = `
         <div id="weather">
@@ -85,6 +94,47 @@ function convertToFahrenheit() {
     // ).textContent = `${fahrenheit} °F`;
   }
 }
+
+function clickAddBtn() {
+  console.log("hello");
+  localStorage.setItem("weather", JSON.stringify(state.bookmarks));
+}
+
+// function addSlideToSlideshow() {
+//   const currentPage = weather;
+//   const newSlide = document.createElement("div");
+//   newSlide.className = "slide";
+//   newSlide.innerHTML = currentPage;
+//   slideshow.appendChild(newSlide);
+
+//   // Create a new dot and add it to the dots container
+//   const newDot = document.createElement("span");
+//   newDot.className = "dot";
+//   newDot.onclick = () => showSlide(slideIndex);
+//   slideshow.appendChild(newDot);
+
+//   // Increment the slide index
+//   slideIndex++;
+
+//   if (slideIndex === 1) {
+//     showSlide(0);
+//   }
+// }
+
+// function showSlide(index) {
+//   const slides = slideshow.querySelectorAll(".slide");
+//   const dots = dotsContainer.querySelectorAll(".dot");
+
+//   slides.forEach((slide) => (slide.style.display = "none"));
+//   slides[index].style.display = "block";
+
+//   dots.forEach((dot) => dot.classList.remove("active"));
+//   dots[index].classList.add("active");
+// }
+
+// // Add click event to the "Add" button
+// addBtn.addEventListener("click", addSlideToSlideshow);
+
 // convertToFahrenheit();
 /*
 searchBtn.addEventListener("click", () => {
