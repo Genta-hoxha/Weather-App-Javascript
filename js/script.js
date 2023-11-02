@@ -9,12 +9,11 @@ let searchBtn = document.querySelector(".search button");
 // let displayWeather = document.querySelector("#weather");
 const addButton = document.getElementById("addButton");
 const slideshow = document.getElementById("slideshow");
-const dotsContainer = document.createElement("div"); // Container for dots
 
 let cel;
 
-function checkWeather() {
-  const city = document.getElementById("city").value;
+function checkWeather(cityname) {
+  const city = cityname ?? document.getElementById("city").value;
   fetch(`${api.url}${city}&appid=${api.key}`)
     .then((res) => {
       obj = res;
@@ -92,166 +91,37 @@ function convertToFahrenheit() {
   }
 }
 
-// let dot = 0;
-
-// function clickAddBtn() {
-//   dot++;
-//   console.log("hello");
-//   for (i = 0; i <= dot; i++) {
-//     document.getElementById("addDot").style.display = "inline";
-//   }
-//   console.log(dot);
-// }
-
-// function currentSlide() {
-//   const weather = document.getElementById("weather");
-//   // weather.innerHTML = html;
-//   weather.style.display = "none"; //funksionon nsese e bejme none pra zhduket
-// }
-
-// Get elements and initialize variables
-
-// dotsContainer.className = "dot-bar";
-
-slideshow.appendChild(dotsContainer);
-
-let slideIndex = 0;
-
-// Function to create a new slide and add it to the slideshow
-function addSlideToSlideshow() {
-  const currentPage = document.documentElement.outerHTML;
-  const newSlide = document.createElement("div");
-  newSlide.className = "slide";
-  newSlide.innerHTML = currentPage;
-  slideshow.appendChild(newSlide);
-  const newDot = document.createElement("span");
-  newDot.className = "dot";
-  newDot.onclick = () => showSlide(slideIndex);
-  dotsContainer.appendChild(newDot);
-  slideIndex++;
-  if (slideIndex === 1) {
-    showSlide(0);
-  }
-}
-
-// Function to show a specific slide
-function showSlide(index) {
-  const slides = slideshow.querySelectorAll(".slide");
-  const dots = dotsContainer.querySelectorAll(".dot");
-
-  slides.forEach((slide) => (slide.style.display = "none"));
-  slides[index].style.display = "block";
-
-  dots.forEach((dot) => dot.classList.remove("active"));
-  dots[index].classList.add("active");
-}
-
-// Add click event to the "Add" button
-addButton.addEventListener("click", addSlideToSlideshow);
-
-// const addPointButton = document.getElementById("addPointButton");
-// const navBar = document.getElementById("navBar");
-// let pointCount = 0;
-// clickAddBtn.addEventListener("click", () => {
-//   pointCount++;
-//   const pointItem = document.createElement("span");
-//   pointItem.textContent = `Point ${pointCount}`;
-//   pointItem.classList.add("addDot");
-//   navBar.appendChild(pointItem);
-//   navBar.style.display = "block";
-// });
-// function addSlideToSlideshow() {
-//   const currentPage = weather;
-//   const newSlide = document.createElement("div");
-//   newSlide.className = "slide";
-//   newSlide.innerHTML = currentPage;
-//   slideshow.appendChild(newSlide);
-
-//   // Create a new dot and add it to the dots container
-//   const newDot = document.createElement("span");
-//   newDot.className = "dot";
-//   newDot.onclick = () => showSlide(slideIndex);
-//   slideshow.appendChild(newDot);
-
-//   // Increment the slide index
-//   slideIndex++;
-
-//   if (slideIndex === 1) {
-//     showSlide(0);
-//   }
-// }
-
-// function showSlide(index) {
-//   const slides = slideshow.querySelectorAll(".slide");
-//   const dots = dotsContainer.querySelectorAll(".dot");
-
-//   slides.forEach((slide) => (slide.style.display = "none"));
-//   slides[index].style.display = "block";
-
-//   dots.forEach((dot) => dot.classList.remove("active"));
-//   dots[index].classList.add("active");
-// }
-
-// // Add click event to the "Add" button
-// addBtn.addEventListener("click", addSlideToSlideshow);
-
-// convertToFahrenheit();
-/*
-searchBtn.addEventListener("click", () => {
-  checkWeather(searchBox.value);
+let saveData = [];
+addButton.addEventListener("click", () => {
+  console.log("hello");
+  saveData.push(searchBox.value);
+  let span = document.createElement("span");
+  span.className = "dot";
+  slideshow.appendChild(span);
 });
 
-//Celsius to Fahrenheit
-function celsiusToFahrenheit(temperature) {
-  return (temperature * 9) / 5 + 32;
-}
+document.addEventListener("click", (e) => {
+  if (e.target.className === "dot") {
+    console.log(saveData, e.target);
+    e.stopPropagation();
+    checkWeather(saveData[Array.from(slideshow.children).indexOf(e.target)]);
+    let cityName =
+      saveData[Array.prototype.indexOf.call(slideshow.children, e.target)];
 
-async function checkWeather(city) {
-  const res = await fetch(api.url + city + `&appid=${api.key}`);
-  let data = await res.json();
-  if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-  console.log(res, data);
-
-  const html = `
-    <div class="weather">
-            <h2 class="city">${data.name}, ${data.sys.country}</h2>
-            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" class="weathericon">
-
-            
-            <h1 class="temp">${data.main.temp}</h1>
-           
-
-            <h3 class="tempMaxMin">${data.main.temp_min} <button class ="°C" onclick ="convertToCelsius()">°C</button> / <button onclick="convertToFahrenheit()" class ="°F">°F</button></h3>
-            <h3 class="description">${data.weather[0].description}</h3>
-            <div class="details">
-              <div class="col">
-                <i class="fa-solid fa-water fa-2x"></i>
-                <div>
-                  <p class="humidity"></p>
-                  <p>${data.main.humidity} %</p>
-                </div>
-              </div>
-              <div class="col">
-                <i class="fa-solid fa-wind fa-2x"></i>
-                <div>
-                  <p class="wind"></p>
-                  <p>${data.wind.speed} km/h</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          `;
-  displayWeather.innerHTML = "";
-  displayWeather.insertAdjacentHTML("afterbegin", html);
-  //   displayWeather.style.opacity = 1;
-  displayWeather.textContent = displayWeather();
-}
-const getJSON = function (url, errorMsg = "Something went wrong") {
-  return fetch(url).then((response) => {
-    if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
-    return response.json();
-  });
-};
-
-checkWeather();
-*/
+    const index = saveData.indexOf(cityName);
+    console.log(index);
+    let dots = slideshow.querySelectorAll(".dot");
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.toggle("active");
+      } else {
+        dot.classList.remove("active");
+      }
+    });
+    console.log(dots);
+    // dots[0].classList.toggle("active");
+    // checkWeather(
+    //   saveData[Array.prototype.indexOf.call(slideshow.children, e.target)]
+    // );
+  }
+});
