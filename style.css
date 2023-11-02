@@ -195,7 +195,7 @@ footer {
 .dot {
   height: 10px;
   width: 10px;
-  background-color: #bbb;
+  background-color: #296;
   border-radius: 50%;
   display: inline-block;
   margin: 0 5px;
@@ -204,7 +204,7 @@ footer {
 
 /* Style for the active dot */
 .active {
-  background-color: #333;
+  background-color: #585;
 }
 #addDot {
   display: none;

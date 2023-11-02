@@ -42,9 +42,15 @@
           placeholder="kërkoni qytetin"
           spellcheck="false"
         />
-        <button onclick="clickAddBtn()" class="add">
+        <!-- <button onclick="clickAddBtn()" class="add">
+          <i class="fa fa-plus" aria-hidden="true" style="color: #f1f1f1e4"></i>
+        </button> -->
+        <button id="addButton">
           <i class="fa fa-plus" aria-hidden="true" style="color: #f1f1f1e4"></i>
         </button>
+        <!-- <button class="add">
+          <i class="fa fa-plus" aria-hidden="true" style="color: #f1f1f1e4"></i>
+        </button> -->
       </div>
       <div id="weather">
         <!-- <div class="displayweather"> -->
@@ -72,12 +78,11 @@
         </div> 
         </div>-->
       </div>
-      <div id="addDot" style="text-align: center">
+      <!-- <div id="addDot" style="text-align: center">
         <br />
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-      </div>
+        <span class="dot" onclick="currentSlide()"></span>
+      </div> -->
+      <div id="slideshow"></div>
     </div>
   </body>
 </html>

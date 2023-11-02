@@ -4,19 +4,15 @@ const api = {
   key: "b3e04946fa11e3be512056b3a7d6c125",
 };
 
-var obj;
 let searchBox = document.querySelector(".search input");
 let searchBtn = document.querySelector(".search button");
 // let displayWeather = document.querySelector("#weather");
-let addBtn = document.querySelector(".add");
-const slideshow = document.getElementById("addDot");
+const addButton = document.getElementById("addButton");
+const slideshow = document.getElementById("slideshow");
 const dotsContainer = document.createElement("div"); // Container for dots
-dotsContainer.className = "dot-bar";
-slideshow.appendChild(dotsContainer);
 
-const state = {};
 let cel;
-let slideIndex = 0;
+
 function checkWeather() {
   const city = document.getElementById("city").value;
   fetch(`${api.url}${city}&appid=${api.key}`)
@@ -60,6 +56,7 @@ function checkWeather() {
             </div>
           </div>
         </div>
+        
       `;
 
       const weather = document.getElementById("weather");
@@ -95,11 +92,74 @@ function convertToFahrenheit() {
   }
 }
 
-function clickAddBtn() {
-  console.log("hello");
-  localStorage.setItem("weather", JSON.stringify(state.bookmarks));
+// let dot = 0;
+
+// function clickAddBtn() {
+//   dot++;
+//   console.log("hello");
+//   for (i = 0; i <= dot; i++) {
+//     document.getElementById("addDot").style.display = "inline";
+//   }
+//   console.log(dot);
+// }
+
+// function currentSlide() {
+//   const weather = document.getElementById("weather");
+//   // weather.innerHTML = html;
+//   weather.style.display = "none"; //funksionon nsese e bejme none pra zhduket
+// }
+
+// Get elements and initialize variables
+
+// dotsContainer.className = "dot-bar";
+
+slideshow.appendChild(dotsContainer);
+
+let slideIndex = 0;
+
+// Function to create a new slide and add it to the slideshow
+function addSlideToSlideshow() {
+  const currentPage = document.documentElement.outerHTML;
+  const newSlide = document.createElement("div");
+  newSlide.className = "slide";
+  newSlide.innerHTML = currentPage;
+  slideshow.appendChild(newSlide);
+  const newDot = document.createElement("span");
+  newDot.className = "dot";
+  newDot.onclick = () => showSlide(slideIndex);
+  dotsContainer.appendChild(newDot);
+  slideIndex++;
+  if (slideIndex === 1) {
+    showSlide(0);
+  }
 }
 
+// Function to show a specific slide
+function showSlide(index) {
+  const slides = slideshow.querySelectorAll(".slide");
+  const dots = dotsContainer.querySelectorAll(".dot");
+
+  slides.forEach((slide) => (slide.style.display = "none"));
+  slides[index].style.display = "block";
+
+  dots.forEach((dot) => dot.classList.remove("active"));
+  dots[index].classList.add("active");
+}
+
+// Add click event to the "Add" button
+addButton.addEventListener("click", addSlideToSlideshow);
+
+// const addPointButton = document.getElementById("addPointButton");
+// const navBar = document.getElementById("navBar");
+// let pointCount = 0;
+// clickAddBtn.addEventListener("click", () => {
+//   pointCount++;
+//   const pointItem = document.createElement("span");
+//   pointItem.textContent = `Point ${pointCount}`;
+//   pointItem.classList.add("addDot");
+//   navBar.appendChild(pointItem);
+//   navBar.style.display = "block";
+// });
 // function addSlideToSlideshow() {
 //   const currentPage = weather;
 //   const newSlide = document.createElement("div");
