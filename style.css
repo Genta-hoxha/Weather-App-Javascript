@@ -210,8 +210,33 @@ footer {
 }
 .dot:active {
   transform: scale(2);
-  background-color: rgb(252, 130, 8);
+  background-color: rgba(216, 97, 0, 0.673);
 }
 #addDot {
   display: none;
+}
+
+.temperature-strip {
+  padding: 70px 0;
+  width: 200px;
+  text-align: center;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 5px;
+  padding: 1px;
+  overflow: hidden;
+}
+
+.strip {
+  text-align: center;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #668ab0 0%,
+    #568bc4 50%,
+    #bd7341 50%,
+    #cd3b2a 100%
+  );
+  width: 50%;
+  transition: width 0.5s;
 }
