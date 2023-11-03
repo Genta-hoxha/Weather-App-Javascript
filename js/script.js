@@ -73,19 +73,21 @@ function checkWeather(cityname) {
       weather.innerHTML = html;
 
       const range = tempMax - tempMin;
+
       const position = tempCelsius - tempMin;
       const percentage = (position / range) * 100;
 
-      const temperatureStrip = document.querySelector(".strip");
-
-      temperatureStrip.style.width = `${percentage}%`;
+      let temperatureStrip = document.querySelector(".strip");
+      console.log(percentage);
+      temperatureStrip.style.width = `${percentage}% !important`;
 
       if (tempCelsius < tempMin) {
         temperatureStrip.style.backgroundColor = "blue";
-      } else if (tempCelsius > tempMax) {
-        temperatureStrip.style.backgroundColor = "red";
       } else {
-        temperatureStrip.style.backgroundColor = "green";
+        temperatureStrip.style.backgroundColor = "red";
+        // } else {
+        //   temperatureStrip.style.backgroundColor = "green";
+        // }
       }
 
       cel = tempCelsius;
