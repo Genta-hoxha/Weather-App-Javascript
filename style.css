@@ -230,3 +230,7 @@ footer {
 .strip {
   height: 10px;
 }
+
+#deleteBtn {
+  display: none;
+}
