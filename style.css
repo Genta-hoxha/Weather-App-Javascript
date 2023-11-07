@@ -221,14 +221,15 @@ footer {
   width: 200px;
   text-align: center;
   height: 10px;
-  background-color: #ccc;
-  border-radius: 5px;
+  background-color: #5384c9;
+  border-radius: 35px;
   padding: 1px;
   overflow: hidden;
 }
 
 .strip {
   height: 10px;
+  border-radius: 35px;
 }
 
 #deleteBtn {

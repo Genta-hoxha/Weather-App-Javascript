@@ -86,15 +86,17 @@ function checkWeather(cityname) {
       let temperatureStrip = document.querySelector(".strip");
       console.log(percentage);
       temperatureStrip.style.width = `${percentage}% !important`;
+      temperatureStrip.style.background =
+        "linear-gradient(90deg, rgba(0,5,172,1) 0%, rgba(255,0,0,1) 100%)";
 
-      if (tempCelsius < tempMin) {
-        temperatureStrip.style.backgroundColor = "blue";
-      } else {
-        temperatureStrip.style.backgroundColor = "red";
-        // } else {
-        //   temperatureStrip.style.backgroundColor = "green";
-        // }
-      }
+      // if (tempCelsius < tempMin) {
+      //   temperatureStrip.style.backgroundColor = "blue";
+      // } else {
+      //   temperatureStrip.style.backgroundColor = "red";
+      // } else {
+      //   temperatureStrip.style.backgroundColor = "green";
+      // }
+      // }
       cel = tempCelsius;
     })
     .catch((error) => {
@@ -145,6 +147,7 @@ addButton.addEventListener("click", () => {
 
   // Push the city name to the saveData array
   const city = searchBox.value;
+  searchBox.value = "";
   const cityFirstCapital = city.charAt(0).toUpperCase() + city.slice(1);
   console.log(cityFirstCapital);
   saveData.push(mainData);
@@ -207,33 +210,25 @@ deleteButton.addEventListener("click", () => {
 
   //KUSHTI PER ARRAY DOT QE TI FSHIJME
   if (arrDot.length === 1) {
-    console.log("ka 1 element", arrDot, saveData);
-    console.log(displayWeather);
+    // console.log("ka 1 element", arrDot, saveData);
+    // console.log(displayWeather);
     saveData.splice(indexActive, 1);
-
     arrDot.splice(indexActive, 1);
-    console.log(activeSpan);
+    // console.log(activeSpan);
     activeSpan.remove();
-    console.log(saveData);
-
+    // console.log(saveData);
     displayWeather.remove();
     deleteButton.remove();
   } else if (arrDot.length > 0) {
     console.log("ka me shume elemente", arrDot, saveData);
     saveData.splice(indexActive, 1);
-
     arrDot.splice(indexActive, 1);
-    console.log(activeSpan);
+    // console.log(activeSpan);
     activeSpan.remove();
-    console.log(saveData);
-
-    console.log("fggf", arrDot.length, saveData.length);
-
-    if (arrDot.length > 0) {
-      console.log(arrDot[arrDot.length - 1]);
-      arrDot[arrDot.length - 1].classList.add("active");
-      console.log(saveData[saveData.length - 1]);
-      checkWeather(saveData[saveData.length - 1]);
-    }
+    // console.log(saveData);
+    arrDot[arrDot.length - 1].classList.add("active");
+    // console.log(saveData[saveData.length - 1]);
+    checkWeather(saveData[saveData.length - 1]);
+    // console.log("fggf", arrDot.length, saveData.length);
   }
 });
