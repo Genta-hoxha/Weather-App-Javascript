@@ -12,6 +12,9 @@ const slideshow = document.getElementById("slideshow");
 let mainIndex;
 let mainData;
 let cel;
+const deleteButton = document.getElementById("deleteBtn");
+const activeSpan = document.querySelector(".dot.active");
+const newActivespan = document.querySelector(".dot");
 
 function checkWeather(cityname) {
   const city = cityname ?? document.getElementById("city").value;
@@ -92,7 +95,6 @@ function checkWeather(cityname) {
         //   temperatureStrip.style.backgroundColor = "green";
         // }
       }
-
       cel = tempCelsius;
     })
     .catch((error) => {
@@ -101,31 +103,41 @@ function checkWeather(cityname) {
     });
 }
 
+//FUNKSIONI PER ENTER
+function enterClick(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    checkWeather(searchBox.value);
+    console.log(searchBox);
+    addButton.disabled = false;
+  }
+}
+
+//FUNKSIONI PER SEARCH BUTTON
 searchBtn.addEventListener("click", () => {
   checkWeather(searchBox.value);
   addButton.disabled = false;
 });
 
+//FUNKSIONI PER CELSIUS
 function convertToCelsius() {
   if (cel !== undefined) {
     const displayWeather = document.getElementById("weather");
     displayWeather.querySelector(".temp").textContent = `${cel} °C`;
-    // displayWeather.querySelector(".tempMaxMin").textContent = `${cel} °C`;
   }
 }
-// convertToCelsius();
+
+//FUNKSIONI PER FAHRENHEIT
 function convertToFahrenheit() {
   if (cel !== undefined) {
     const displayWeather = document.getElementById("weather");
     const fahrenheit = Math.round((cel * 9) / 5 + 32);
     displayWeather.querySelector(".temp").textContent = `${fahrenheit} °F`;
-    // displayWeather.querySelector(
-    //   ".tempMaxMin"
-    // ).textContent = `${fahrenheit} °F`;
   }
 }
 addButton.disabled = true;
-//funksioni per add button
+
+//FUNKSIONI PER ADD BUTTONIN
 let saveData = [];
 let arrDot = [];
 addButton.addEventListener("click", () => {
@@ -152,6 +164,7 @@ addButton.addEventListener("click", () => {
   let span = document.createElement("span");
   span.className = "dot";
   arrDot.push(span);
+
   slideshow.appendChild(span);
 
   deleteBtn.style.display = "block";
@@ -182,135 +195,45 @@ addButton.addEventListener("click", () => {
   });
 });
 
-// span.addEventListener("click", () => {});
-// let saveData = [];
-// addButton.addEventListener("click", () => {
-//   // console.log("hello");
-//   //mbushja e array me te dhenat e qyteteve
-//   saveData.push(searchBox.value);
-
-//   let span = document.createElement("span");
-//   span.className = "dot";
-//   slideshow.appendChild(span);
-//   //shfaqim koshin kur klikojme buttonin add
-//   deleteBtn.style.display = "block";
-
-//   if (saveData.length === 1) {
-//     let dots = slideshow.querySelectorAll(".dot");
-//     dots.forEach((dot, i) => {
-//       dot.classList.toggle("active");
-//     });
-//   }
-
-//   saveData.forEach((element, index) => {
-//     console.log(element);
-//     element.addEventListener("click", () => {
-//       alert(`click ${index + 1}: ${element.textContent}`);
-//     });
-//   });
-// });
-
-/*
-document.addEventListener("click", (e) => {
-  if (e.target.className === "dot") {
-    console.log(saveData, e.target);
-    e.stopPropagation();
-    checkWeather(saveData[Array.from(slideshow.children).indexOf(e.target)]);
-
-    let cityName =
-      saveData[Array.prototype.indexOf.call(slideshow.children, e.target)];
-
-    const index = saveData.indexOf(cityName);
-    console.log(index);
-
-    let dots = slideshow.querySelectorAll(".dot");
-    dots.forEach((dot, i) => {
-      if (i === index) {
-        dot.classList.toggle("active");
-      } else {
-        dot.classList.remove("active");
-      }
-    });
-    console.log(dots);
-    // dots[0].classList.toggle("active");
-    // checkWeather(
-    //   saveData[Array.prototype.indexOf.call(slideshow.children, e.target)]
-    // );
-  }
-  console.log("hello");
-});
-
-*/
-
-// const deleteButton = document.getElementById("deleteBtn");
-// deleteButton.addEventListener("click", () => {
-//   const activeDot = slideshow.querySelector(".dot.active");
-//   if (activeDot) {
-//     const index = Array.from(slideshow.children).indexOf(activeDot);
-
-//     if (index > -1) {
-//       slideshow.removeChild(slideshow.children[index]);
-//       saveData.splice(index, 1);
-//     }
-
-//     if (saveData.length === 0) {
-//       const displayWeather = document.getElementById("weather");
-//       displayWeather.remove();
-//       deleteButton.remove();
-//     } else if (index === saveData.length) {
-//       const dots = slideshow.querySelectorAll(".dot");
-//       if (dots.length > 0) {
-//         dots[dots.length - 1].classList.add("active");
-//         checkWeather(saveData[dots.length - 1]);
-//       }
-//     }
-//   }
-// });
-
-/*
-const deleteButton = document.getElementById("deleteBtn");
 deleteButton.addEventListener("click", () => {
-  console.log("genta");
+  const activeSpan = document.querySelector(".dot.active");
+  const displayWeather = document.querySelector("#weather");
+  console.log("hi");
+  console.log(arrDot);
+  const indexActive = arrDot.findIndex((element) =>
+    element.classList.contains("active")
+  );
+  console.log(indexActive, saveData);
 
-  //kur kemi vetem nje qytet do ikim serish ne gjendjenm fillestare
-  let dots = slideshow.querySelectorAll(".dot");
-  if (saveData.length == 1) {
-    let displayWeather = document.getElementById("weather");
-    displayWeather.style.display = "none";
-    deleteBtn.style.display = "none";
-    // dotActive.style.display = "none";
-  }
+  //KUSHTI PER ARRAY DOT QE TI FSHIJME
+  if (arrDot.length === 1) {
+    console.log("ka 1 element", arrDot, saveData);
+    console.log(displayWeather);
+    saveData.splice(indexActive, 1);
 
-  //kur kemi me shume se nje qytet si do funksionoje butoni i remove
-  else {
-    let dots = slideshow.querySelectorAll(".dot");
-    dots.forEach((dot, i) => {
-      if (i === index) {
-        dot.classList.toggle("active");
-      } else {
-        dot.classList.remove("active");
-      }
-    });
+    arrDot.splice(indexActive, 1);
+    console.log(activeSpan);
+    activeSpan.remove();
+    console.log(saveData);
 
-    let cityName =
-      saveData[Array.prototype.indexOf.call(slideshow.children, e.target)];
+    displayWeather.remove();
+    deleteButton.remove();
+  } else if (arrDot.length > 0) {
+    console.log("ka me shume elemente", arrDot, saveData);
+    saveData.splice(indexActive, 1);
 
-    const index = saveData.indexOf(cityName);
-    console.log(index);
+    arrDot.splice(indexActive, 1);
+    console.log(activeSpan);
+    activeSpan.remove();
+    console.log(saveData);
 
-    let dotSlideshow = document.getElementById("slideshow");
-    let childActive = document.querySelector(".active");
+    console.log("fggf", arrDot.length, saveData.length);
 
-    dotSlideshow.removeChild(childActive);
-    let dotCurr = document.querySelector(".dot");
-    let removeActive = slideshow.children[dotCurr];
-    if (removeActive === searchBox.length) {
-      removeActive.remove();
-      dotActive.remove();
-      index.remove();
+    if (arrDot.length > 0) {
+      console.log(arrDot[arrDot.length - 1]);
+      arrDot[arrDot.length - 1].classList.add("active");
+      console.log(saveData[saveData.length - 1]);
+      checkWeather(saveData[saveData.length - 1]);
     }
   }
 });
-
-
-*/
