@@ -39,7 +39,7 @@
         <input
           type="text"
           id="city"
-          placeholder="kërkoni qytetin"
+          placeholder="search city"
           spellcheck="false"
           onkeypress="enterClick(event)"
         />
@@ -86,6 +86,33 @@
         <span class="dot" onclick="currentSlide()"></span>
       </div> -->
       <div id="slideshow"></div>
+      <br />
+
+      <div class="prevnext">
+        <i
+          class="fa fa-chevron-left disabled"
+          id="prev"
+          style="color: #f1f1f1e4"
+          onclick="prevPage()"
+        ></i>
+
+        &nbsp; &nbsp; &nbsp; &nbsp;
+
+        <i
+          class="fa fa-chevron-right disabled"
+          id="next"
+          style="color: #f1f1f1e4"
+          onclick="nextPage()"
+        ></i>
+      </div>
+
+      <!-- <a href='javascript:alert(("hi"))'>ClickMe</a>
+
+      <a href="#" onclick="javascript:prevPage()" id="btn_prev">Prev</a>
+      <a href="#" onclick="javascript:nextPage()" id="btn_next">Next</a> -->
+      <br />
+      <!-- <div id="pagination" class="pagination" style:"color: #f1f1f1e"></div> -->
+
       <br />
       <i
         class="fa fa-trash"

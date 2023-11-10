@@ -235,3 +235,24 @@ footer {
 #deleteBtn {
   display: none;
 }
+
+#prev {
+  display: none;
+}
+
+#next {
+  display: none;
+}
+
+.prevnext {
+  display: flex;
+  justify-content: center;
+}
+
+i.disabled {
+  color: #999; /* Change the color to a visually muted one */
+  pointer-events: none; /* Prevent the icon from being clickable */
+}
+::placeholder {
+  color: #f1f1f1e4;
+}
