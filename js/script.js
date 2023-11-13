@@ -282,9 +282,9 @@ function prevPage() {
   let currentPage = arrDot.findIndex((element) =>
     element.classList.contains("active")
   );
-  console.log(currentPage);
-  console.log(arrDot[currentPage]);
+  console.log(currentPage); //1
   currentPage--;
+  console.log(currentPage); //0
   if (arrDot[currentPage + 1] && arrDot[currentPage]) {
     arrDot[currentPage + 1].classList.remove("active");
     arrDot[currentPage].classList.add("active");
@@ -296,7 +296,7 @@ function prevPage() {
   // }
   checkWeather(saveData[currentPage]);
   console.log(currentPage);
-  // updatePagination(currentPage);
+  updatePagination(currentPage);
 }
 
 //FUNKSIONI PER NEXT PAGE
@@ -320,7 +320,7 @@ function nextPage() {
   } else {
     prevBtn.classList.add("disabled");
   }
-  // updatePagination(currentPage);
+  updatePagination(currentPage);
 }
 
 function updatePagination(currentPage) {
