@@ -223,7 +223,7 @@ addButton.addEventListener("click", () => {
       dot.classList.add("active");
     });
   });
-  updatePagination(indexActive);
+  updatePagination(indexActive + 1);
 });
 
 deleteButton.addEventListener("click", () => {
@@ -269,7 +269,7 @@ deleteButton.addEventListener("click", () => {
 // console.log(currentPage);
 const totalPages = arrDot.length;
 const dotsToShow = 3;
-const pageCount = Math.ceil(arrDot.length / dotsToShow);
+// const pageCount = Math.ceil(arrDot.length / dotsToShow);
 const indexActive = arrDot.findIndex((element) =>
   element.classList.contains("active")
 );
@@ -282,18 +282,21 @@ function prevPage() {
   let currentPage = arrDot.findIndex((element) =>
     element.classList.contains("active")
   );
-
+  console.log(currentPage);
+  console.log(arrDot[currentPage]);
   currentPage--;
-  arrDot[currentPage + 1].classList.remove("active");
-  arrDot[currentPage].classList.add("active");
-  checkWeather(saveData[currentPage]);
-
-  if (currentPage === 0) {
-    prevBtn.classList.add("disabled");
-  } else {
-    prevBtn.classList.remove("disabled");
+  if (arrDot[currentPage + 1] && arrDot[currentPage]) {
+    arrDot[currentPage + 1].classList.remove("active");
+    arrDot[currentPage].classList.add("active");
   }
-  updatePagination(currentPage);
+  // if (currentPage === 0) {
+  //   prevBtn.classList.add("disabled");
+  // } else {
+  //   prevBtn.classList.remove("disabled");
+  // }
+  checkWeather(saveData[currentPage]);
+  console.log(currentPage);
+  // updatePagination(currentPage);
 }
 
 //FUNKSIONI PER NEXT PAGE
@@ -302,6 +305,7 @@ function nextPage() {
   let currentPage = arrDot.findIndex((element) =>
     element.classList.contains("active")
   );
+  console.log(currentPage);
   currentPage++;
   if (arrDot[currentPage - 1] && arrDot[currentPage]) {
     arrDot[currentPage - 1].classList.remove("active");
@@ -316,7 +320,7 @@ function nextPage() {
   } else {
     prevBtn.classList.add("disabled");
   }
-  updatePagination(currentPage);
+  // updatePagination(currentPage);
 }
 
 function updatePagination(currentPage) {
@@ -337,285 +341,3 @@ function updatePagination(currentPage) {
     }
   });
 }
-
-// function changePage() {
-//   if (currentPage > 2) {
-//     if (currentPage === 1) {
-//       currentPage = 2;
-//       // Assuming prevBtn is a jQuery object, use .removeClass() without "fa fa-chevron-left disabled"
-//       prevBtn.removeClass("fa fa-chevron-left disabled");
-//       return;
-//     }
-//   }
-// }
-// changePage();
-//duhet te bejme tani krahasimin nese numri i pageve te jete = me record
-
-//   if (currentPage - 1 == arrDot.length) {
-//     console.log(currentPage);
-//     prevBtn.classList.remove("disabled");
-//   } else {
-//     nextBtn.classList.add("disabled");
-//   }
-// }
-/*
-function nextPage() {
-  // let currentPage = arrDot.findIndex((element) =>
-  //   element.classList.contains("active")
-  // );
-  console.log("hen");
-  console.log(currentPage);
-  // if ((currentPage = 1)) {
-  currentPage++;
-
-  console.log(currentPage);
-  // changePage(currentPage);
-  arrDot[currentPage - 1].classList.remove("active");
-  arrDot[currentPage].classList.add("active");
-  checkWeather(saveData[currentPage]);
-*/
-//KUSHTET
-// if (currentPage < arrDot.length - 1) {
-//   currentPage++;
-//   arrDot[currentPage - 1].classList.remove("active");
-//   arrDot[currentPage].classList.add("active");
-//   checkWeather(saveData[currentPage]);
-// }
-// prevBtn.classList.remove("disabled");
-
-/*
-function changePage(page) {
-  const btn_next = document.getElementById("next");
-  const btn_prev = document.getElementById("prev");
-  const slideshow = document.getElementById("slideshow");
-  // const dots = document.querySelectorAll(".dot");
-
-  // Validate page
-  if (page < 1) page = 1;
-  if (page > numPages()) page = numPages();
-
-  // Clear existing content
-  slideshow.innerHTML = ""; // Corrected this line
-
-  for (
-    let i = (page - 1) * dotsToShow;
-    i < page * recordPage && i < arrDot.length;
-    i++
-  ) {
-    slideshow.innerHTML += arrDot[i] + "<br>"; // Corrected this line
-  }
-
-  // // Remove 'active' class from all dots
-  // dots.forEach((dot) => {
-  //   dot.classList.remove("active");
-  // });
-
-  // // Add 'active' class to the current page dot
-  // dots[page - 1].classList.add("active");
-
-  btn_prev.style.visibility = page === 1 ? "hidden" : "visible";
-  btn_next.style.visibility = page === numPages() ? "hidden" : "visible";
-}
-
-*/
-/*
-const prevBtn = document.getElementById("prev");
-const nextBtn = document.getElementById("next");
-// ...
-
-function prevPage() {
-  let currentPage = arrDot.findIndex((element) =>
-    element.classList.contains("active")
-  );
-  if (currentPage > 0) {
-    currentPage--;
-    arrDot[currentPage + 1].classList.remove("active");
-    arrDot[currentPage].classList.add("active");
-    checkWeather(saveData[currentPage]);
-  }
-}
-
-function nextPage() {
-  let currentPage = arrDot.findIndex((element) =>
-    element.classList.contains("active")
-  );
-  if (currentPage < arrDot.length - 1) {
-    currentPage++;
-    arrDot[currentPage - 1].classList.remove("active");
-    arrDot[currentPage].classList.add("active");
-    checkWeather(saveData[currentPage]);
-  }
-}
-
-function changePage(page) {
-  const btn_next = document.getElementById("next");
-  const btn_prev = document.getElementById("prev");
-  const slideshow = document.getElementById("slideshow");
-
-  // Validate page
-  if (page < 1) page = 1;
-  if (page > numPages()) page = numPages();
-
-  // Clear existing content
-  slideshow.innerHTML = "";
-
-  for (
-    let i = (page - 1) * recordPage;
-    i < page * recordPage && i < arrDot.length;
-    i++
-  ) {
-    slideshow.appendChild(arrDot[i]);
-  }
-
-  btn_prev.style.visibility = page === 1 ? "hidden" : "visible";
-  btn_next.style.visibility = page === numPages() ? "hidden" : "visible";
-}
-
-// ...
-
-// Update the window.onload function
-window.onload = function () {
-  changePage(1);
-  updatePage();
-};
-
-*/
-/*
-// let currentPage = indexActive;
-let recordPage = 3;
-
-function prevPage() {
-  // console.log("prev", currentPage);
-  let currentPage = arrDot.findIndex((element) =>
-    element.classList.contains("active")
-  );
-  console.log(currentPage);
-  currentPage--;
-  console.log(currentPage);
-  prevBtn.style.display = "block";
-  nextBtn.style.display = "block";
-  arrDot[currentPage + 1].classList.remove("active");
-  arrDot[currentPage].classList.add("active");
-  checkWeather(saveData[currentPage]);
-}
-
-function nextPage() {
-  // console.log("prev", currentPage);
-  let currentPage = arrDot.findIndex((element) =>
-    element.classList.contains("active")
-  );
-  console.log(currentPage);
-  // if ((currentPage = 1)) {
-  currentPage++;
-  console.log(currentPage);
-  // changePage(currentPage);
-  arrDot[currentPage - 1].classList.remove("active");
-  arrDot[currentPage].classList.add("active");
-  checkWeather(saveData[currentPage]);
-}
-
-function changePage(page) {
-  const btn_next = document.getElementById("next");
-  const btn_prev = document.getElementById("prev");
-  const slideshow = document.getElementById("slideshow");
-  // const dots = document.querySelectorAll(".dot");
-
-  // Validate page
-  if (page < 1) page = 1;
-  if (page > numPages()) page = numPages();
-
-  // Clear existing content
-  slideshow.innerHTML = ""; // Corrected this line
-
-  for (
-    let i = (page - 1) * recordPage;
-    i < page * recordPage && i < arrDot.length;
-    i++
-  ) {
-    slideshow.innerHTML += arrDot[i] + "<br>"; // Corrected this line
-  }
-
-  // // Remove 'active' class from all dots
-  // dots.forEach((dot) => {
-  //   dot.classList.remove("active");
-  // });
-
-  // // Add 'active' class to the current page dot
-  // dots[page - 1].classList.add("active");
-
-  btn_prev.style.visibility = page === 1 ? "hidden" : "visible";
-  btn_next.style.visibility = page === numPages() ? "hidden" : "visible";
-}
-
-
-*/
-// function prevPage() {
-//   if ((currentPage = 1)) {
-//     console.log("prev");
-//     currentPage--;
-//     changePage(currentPage);
-//   }
-// }
-
-// function nextPage() {
-//   if (currentPage < numPages()) {
-//     currentPage++;
-//     changePage(currentPage);
-//   }
-// }
-
-// // // ...
-
-// function changePage(page) {
-//   const btn_next = document.getElementById("next");
-//   const btn_prev = document.getElementById("prev");
-//   const slideshow = document.getElementById("slideshow");
-//   const dots = document.querySelectorAll(".dot");
-//   // Validate page
-//   if (page < 1) page = 1;
-//   if (page > numPages()) page = numPages();
-
-//   // Clear existing content
-//   arrDot.innerHTML = "";
-
-//   for (
-//     let i = (page - 1) * recordPage;
-//     i < page * recordPage && i < saveData.length;
-//     i++
-//   ) {
-//     arrDot.innerHTML += saveData[i] + "<br>";
-//   }
-
-//   // // Remove 'active' class from all dots
-//   // dots.forEach((dot) => {
-//   //   dot.classList.remove("active");
-//   // });
-
-//   // Add 'active' class to the current page dot
-//   // dots[page - 1].classList.add("active");
-
-//   btn_prev.style.visibility = page === 1 ? "hidden" : "visible";
-//   btn_next.style.visibility = page === numPages() ? "hidden" : "visible";
-// }
-
-// // Add this function to update the current page and refresh the content
-// function updatePage() {
-//   const dots = document.querySelectorAll(".dot");
-
-//   dots.forEach((dot, i) => {
-//     dot.addEventListener("click", () => {
-//       currentPage = i + 1;
-//       changePage(currentPage);
-//     });
-//   });
-// }
-
-// function numPages() {
-//   return Math.ceil(saveData.length / recordPage);
-// }
-
-// // Update the window.onload function
-// window.onload = function () {
-//   changePage(1);
-//   updatePage();
-// };
